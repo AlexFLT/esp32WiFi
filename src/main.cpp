@@ -1,27 +1,26 @@
 #include <Arduino.h>
 #include "WiFi.h"
+int countNetworks;
 
 void setup()
 {
     Serial.begin(115200);
-    WiFi.mode(WIFI_STA);
-    Serial.println("Start scan");
-    delay(2500);
+    Serial.println("WiFi scanner is started");
+    delay(100);
 }
 
 void loop()
 {
-    int n = WiFi.scanNetworks();
-    if (n == 0) Serial.println("WiFi networks not founded");
+    countNetworks = WiFi.scanNetworks();
+    if (countNetworks == 0) Serial.println("WiFi networks not founded");
     else {
-        for (int i = 0; i < n; i++) {
-            Serial.print("Name: ");
+        for (int i = 0; i < countNetworks; i++) {
+            Serial.print("#"); // SSID
             Serial.print(WiFi.SSID(i));
-            Serial.print(", RSSI: ");
-            Serial.print(WiFi.RSSI(i));
-            Serial.println((WiFi.encryptionType(i) == WIFI_AUTH_OPEN)?"| OPEN NETWORK":" | NEED AUTH");
+            Serial.print(" #"); // RSSI
+            Serial.println(WiFi.RSSI(i));
         }
     }
-    Serial.println("--- Restart scanning ---");
-    delay(10000);
+    Serial.println("--- RESTART SCAN ---");
+    delay(2500);
 }
