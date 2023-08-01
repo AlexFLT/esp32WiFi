@@ -15,7 +15,9 @@ void loop()
     if (countNetworks == 0) Serial.println("WiFi networks not founded");
     else {
         for (int i = 0; i < countNetworks; i++) {
-            Serial.print("#"); // SSID
+            Serial.print("#");
+            Serial.print(i);
+            Serial.print(" #"); // SSID
             Serial.print(WiFi.SSID(i));
             Serial.print(" #"); // RSSI
             Serial.println(WiFi.RSSI(i));
